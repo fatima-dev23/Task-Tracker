@@ -1,10 +1,10 @@
 import User from "./models/User.js";
 import bcrypt from "bcrypt"
-import connectDB from "./db/db.js";
+import db from "./db/db.js";
 
 
 const userRegister = async ()=>{
-    await connectDB()
+    await db.connectDB()
     try {
         const hashPassword = await bcrypt.hash("123admin", 11)
         const newUser = new User({

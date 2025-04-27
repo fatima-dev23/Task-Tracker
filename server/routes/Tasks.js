@@ -16,10 +16,11 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const tasks = await Task.find().lean(); 
+    const tasks = await Task.find().lean();
     const tasksWithStringId = tasks.map(task => ({
       ...task,
-      id: task._id.toString()
+      id: task._id.toString(), 
+      _id: task._id.toString() 
     }));
     res.json(tasksWithStringId);
   } catch (error) {
