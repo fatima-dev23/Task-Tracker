@@ -37,8 +37,8 @@ const AdminDashboard = () => {
     description: '',
     assignedTo: '',
     dueDate: '',
-    status: '',
-    priority: ''
+    status: 'todo',
+    priority: 'high'
   });
   const [editingTask, setEditingTask] = useState(null);
 
@@ -210,8 +210,8 @@ const AdminDashboard = () => {
       description: '',
       assignedTo: '',
       dueDate: '',
-      status: '',
-      priority: ''
+      status: 'todo',
+      priority: 'high'
     });
     setEditingTask(null);
     setShowModal(false);
