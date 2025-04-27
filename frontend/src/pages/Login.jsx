@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+
 const Login = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [error, setError]=useState(null);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate(); 
 
     const handleSubmit = async(event) => {
         event.preventDefault()
@@ -20,26 +22,30 @@ const Login = () => {
             }
           );
           if (response.data.success) {
-            alert("Logged in Successfully!")
+            alert("Logged in Successfully!");
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            
+            navigate('/admin-dashboard');
           }
           console.log(response);
         } catch (error) {
             if (error.response && !error.response.data.success) {
-                setError(error.response.data.error)
-                
-            }else{
-                setError("Error! Cannot login at this moment.")
+                setError(error.response.data.error);
+            } else {
+                setError("Error! Cannot login at this moment.");
             }
           console.log("Error! Couldn't send data.", error);
         }
-      }
-      // navigate('/admin-dashboard');
+    }
+
     return (
         <div className='flex flex-col items-center justify-center h-screen bg-gray-200 font-[Inter]'>
-            <form  onSubmit={handleSubmit} className='border p-5 px-[4vw] rounded-md bg-white' action="#">
-                <h2 className='text-3xl font-bold text-[#2563EB] text-center mb-4'>EMS - Login</h2>
+            <form onSubmit={handleSubmit} className='border p-5 px-[4vw] rounded-md bg-white' action="#">
+                <h2 className='text-3xl font-bold text-[#2563EB] text-center mb-1'>Trackit</h2>
+                <span className='text-gray-600 mb-4 text-[18px] text-center'>Manage all your tasks at one place</span>
                 {error && <p className='text-red-500'>{error}</p>}
-                <div className='mb-4 flex flex-col'>
+                <div className='mt-3 mb-4 flex flex-col'>
                     <label className='mb-1 block text-gray-700' htmlFor="email">Email</label>
                     <input
                         className='w-full border px-3 py-1 rounded-sm'
@@ -60,12 +66,10 @@ const Login = () => {
                         <span className="ml-2 text-gray-700 text-sm">Remember me</span>
                     </label>
                     <a className='text-[#2563EB] float-end text-sm' href='#'>Forgot Password?</a>
-
                 </div>
                 <div className='flex items-center justify-center'>
                     <button className='w-full border cursor-pointer rounded-sm bg-[#2563EB] text-white px-[25px] py-1 uppercase font-bold' type='submit'>log in</button>
                 </div>
-
             </form>
         </div>
     )

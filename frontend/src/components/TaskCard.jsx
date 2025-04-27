@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const TaskCard = ({ task, onEdit, onDelete }) => {
     const priorityColors = {
@@ -9,8 +9,8 @@ const TaskCard = ({ task, onEdit, onDelete }) => {
 
     return (
         <div className={`p-3 rounded mb-3 shadow-sm border-l-4 ${task.priority === 'high' ? 'border-red-300 bg-red-50' :
-                task.priority === 'medium' ? 'border-blue-300 bg-blue-50' :
-                    'border-green-300 bg-green-50'
+            task.priority === 'medium' ? 'border-blue-300 bg-blue-50' :
+                'border-green-300 bg-green-50'
             }`}>
             <h3 className="font-bold text-gray-800">{task.title}</h3>
             <p className="text-sm text-gray-600">Assigned to: {task.assignedTo}</p>
@@ -23,13 +23,21 @@ const TaskCard = ({ task, onEdit, onDelete }) => {
 
             <div className="flex gap-2 mt-2">
                 <button
-                    onClick={() => onEdit(task)}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onEdit(task);
+                    }}
                     className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
                 >
                     Edit
                 </button>
                 <button
-                    onClick={() => onDelete(task._id)}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onDelete(task._id || task.id);
+                    }}
                     className="bg-red-500 text-white px-2 py-1 rounded text-xs"
                 >
                     Delete
@@ -39,4 +47,4 @@ const TaskCard = ({ task, onEdit, onDelete }) => {
     );
 };
 
-export default TaskCard
+export default TaskCard;
