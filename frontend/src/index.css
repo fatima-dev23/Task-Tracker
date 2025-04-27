@@ -6,3 +6,19 @@
     transform: scale(1.02);
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
   }
+
+  [role="button"] {
+    touch-action: none;
+  }
+  
+  .dnd-handle {
+    cursor: grab;
+  }
+  
+  .dnd-handle:active {
+    cursor: grabbing;
+  }
+  
+  .dnd-overlay {
+    opacity: 0.5;
+  }
